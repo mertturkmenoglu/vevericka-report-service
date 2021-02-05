@@ -7,6 +7,7 @@ import dotenv from 'dotenv';
 
 import { message } from './responses/message';
 import { reportRoutes } from './routes/reportRoutes';
+import { error } from './responses/error';
 
 dotenv.config();
 
@@ -35,6 +36,14 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/v1', reportRoutes);
+
+app.use((err, _req, res, next) => {
+	if (err instanceof SyntaxError) {
+		return res.status(400).json(error("Syntax error", 400))
+	} else {
+		next();
+	}
+});
 
 const PORT = process.env.PORT || 3000;
 
