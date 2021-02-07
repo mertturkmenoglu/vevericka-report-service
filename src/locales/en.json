@@ -1,0 +1,9 @@
+{
+  "create_report": {
+    "reported": "Reported",
+    "errors": {
+      "invalid_req_body": "Request body is invalid",
+      "report_failed": "Report failed"
+    }
+  }
+}

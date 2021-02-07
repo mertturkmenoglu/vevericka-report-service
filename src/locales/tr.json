@@ -1,0 +1,9 @@
+{
+  "create_report": {
+    "reported": "Bildirildi",
+    "errors": {
+      "invalid_req_body": "Geçersiz istek gövdesi",
+      "report_failed": "Bildirim başarısız oldu"
+    }
+  }
+}

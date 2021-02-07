@@ -4,18 +4,29 @@ import cors from 'cors';
 import helmet from 'helmet';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import i18n from "i18n";
 
 import { message } from './responses/message';
 import { reportRoutes } from './routes/reportRoutes';
 import { error } from './responses/error';
+import path from "path";
 
 dotenv.config();
+
+i18n.configure({
+	locales: ['en', 'tr'],
+	directory: path.join(__dirname, 'locales'),
+	defaultLocale: 'en',
+	queryParameter: 'lang',
+	objectNotation: true
+});
 
 const app = express();
 app.use(express.json());
 app.use(morgan('[:date[web]] || :method :url  || Status: :status || Response time: :response-time ms'));
 app.use(cors());
 app.use(helmet());
+app.use(i18n.init);
 
 const MONGOOSE_OPTIONS: mongoose.ConnectOptions = {
 	useNewUrlParser: true,
