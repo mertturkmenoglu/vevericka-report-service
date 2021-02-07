@@ -49,7 +49,13 @@ const createReport = async (req: Request, res: Response) => {
 	}
 }
 
+const getAllReports = async (req: Request, res: Response) => {
+	const data = await Report.find({});
+	return res.status(200).json(response(data));
+}
+
 export {
 	getReportTypes,
-	createReport
+	createReport,
+	getAllReports
 }
