@@ -30,6 +30,7 @@ mongoose.connect(process.env.DB_CONNECTION, MONGOOSE_OPTIONS, (err) => {
 	}
 })
 
+app.set('trust proxy', 1);
 
 app.get('/', (req, res) => {
 	res.status(200).json(message("Vevericka Report Service"));
