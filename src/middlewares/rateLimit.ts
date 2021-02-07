@@ -6,7 +6,7 @@ const getReportTypesRateLimit = expressRateLimit({
 });
 
 const createReportRateLimit = expressRateLimit({
-    windowMs: 15 * 60 * 1000, // 10 minutes
+    windowMs: 10 * 60 * 1000, // 10 minutes
     max: 50
 });
 
