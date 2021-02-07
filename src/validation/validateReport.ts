@@ -1,4 +1,4 @@
-export const validateReport = (data: any): Boolean => {
+export const validateReport = (data: any): boolean => {
 	const required = ['type', 'reported_by', 'reported_post_id', 'reported_user'];
 
 	for (const requirement of required) {

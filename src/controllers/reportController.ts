@@ -6,6 +6,9 @@ import { error } from '../responses/error';
 import Report from '../models/Report';
 import { message } from '../responses/message';
 import { constants} from "../data/ApplicationConstants";
+import Log from "../helpers/Log";
+
+const TAG = "[reportController]";
 
 const getReportTypes = async (req: Request, res: Response) => {
 	let lang = req.query.lang;
@@ -41,7 +44,7 @@ const createReport = async (req: Request, res: Response) => {
 		await report.save();
 		return res.status(201).json(message(req.__('create_report.reported')));
 	} catch (err) {
-		console.error(err);
+		Log.e(err, TAG)
 		return res.status(500).json(error(req.__('create_report.errors.report_failed'), 500));
 	}
 }

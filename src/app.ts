@@ -1,3 +1,5 @@
+import path from "path";
+
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
@@ -6,10 +8,13 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import i18n from "i18n";
 
+import Log from "./helpers/Log";
+
 import { message } from './responses/message';
 import { reportRoutes } from './routes/reportRoutes';
 import { error } from './responses/error';
-import path from "path";
+
+const TAG = "[app]";
 
 dotenv.config();
 
@@ -35,9 +40,9 @@ const MONGOOSE_OPTIONS: mongoose.ConnectOptions = {
 
 mongoose.connect(process.env.DB_CONNECTION, MONGOOSE_OPTIONS, (err) => {
 	if (err) {
-		console.error(`Mongoose connection error: ${err.message}`);
+		Log.e(`Mongoose connection error: ${err.message}`, TAG);
 	} else {
-		console.log('Server connected to MongoDB')
+		Log.i('Server connected to MongoDB', TAG);
 	}
 })
 
@@ -51,6 +56,7 @@ app.use('/api/v1', reportRoutes);
 
 app.use((err, _req, res, next) => {
 	if (err instanceof SyntaxError) {
+		Log.e(err.message, TAG);
 		return res.status(400).json(error("Syntax error", 400))
 	} else {
 		next();
@@ -60,5 +66,5 @@ app.use((err, _req, res, next) => {
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-	console.log(`Server starting listening on port ${PORT}`);
+	Log.i(`Server starting listening on port ${PORT}`, TAG)
 });
